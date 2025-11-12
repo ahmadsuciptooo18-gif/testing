@@ -1,0 +1,1081 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <title>ElevaTech Indonesia - Solusi Lift Terpercaya</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            overflow-x: hidden;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        /* Navbar */
+        .navbar {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            color: white;
+            font-size: 1.8rem;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .nav-menu a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+        }
+
+        .nav-menu a:hover {
+            color: #ffd700;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        /* Image Slider */
+        .slider-container {
+            position: relative;
+            width: 100%;
+            height: 600px;
+            overflow: hidden;
+            cursor: grab;
+        }
+
+        .slider-container:active {
+            cursor: grabbing;
+        }
+
+        .slider {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+            height: 100%;
+            user-select: none;
+        }
+
+        .slide {
+            min-width: 100%;
+            height: 100%;
+            position: relative;
+        }
+
+        .slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .slide-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .slide-overlay h2 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .slide-overlay p {
+            font-size: 1.3rem;
+            max-width: 600px;
+        }
+
+        .slider-nav {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+            z-index: 10;
+        }
+
+        .slider-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .slider-dot.active {
+            background: white;
+        }
+
+        .slider-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.3);
+            color: white;
+            border: none;
+            font-size: 2rem;
+            padding: 1rem 1.5rem;
+            cursor: pointer;
+            transition: background 0.3s;
+            z-index: 10;
+        }
+
+        .slider-arrow:hover {
+            background: rgba(255, 255, 255, 0.5);
+        }
+
+        .slider-arrow.prev {
+            left: 20px;
+        }
+
+        .slider-arrow.next {
+            right: 20px;
+        }
+
+        /* Sections */
+        section {
+            padding: 4rem 2rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: #1e3c72;
+            text-align: center;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 3rem;
+            font-size: 1.1rem;
+        }
+
+        /* Stats Section */
+        .stats {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+        }
+
+        .stats h2 {
+            color: white;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .stat-card {
+            text-align: center;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #ffd700;
+        }
+
+        .stat-label {
+            font-size: 1.2rem;
+            margin-top: 0.5rem;
+        }
+
+        /* About Section */
+        .about {
+            background: #f9f9f9;
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+            margin-top: 2rem;
+        }
+
+        .about-text p {
+            margin-bottom: 1rem;
+            text-align: justify;
+            line-height: 1.8;
+        }
+
+        .about-image {
+            width: 100%;
+            height: 400px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        /* Services Section */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .service-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+
+        .service-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .service-card h3 {
+            color: #1e3c72;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        /* Projects Section */
+        .projects {
+            background: #f9f9f9;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .project-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .project-image {
+            width: 100%;
+            height: 250px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+        }
+
+        .project-info {
+            padding: 1.5rem;
+        }
+
+        .project-info h3 {
+            color: #1e3c72;
+            margin-bottom: 0.5rem;
+        }
+
+        .project-details {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .project-detail {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        /* Experience Timeline */
+        .timeline {
+            max-width: 800px;
+            margin: 3rem auto;
+            position: relative;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            height: 100%;
+            background: #1e3c72;
+        }
+
+        .timeline-item {
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .timeline-content {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            width: 45%;
+        }
+
+        .timeline-item:nth-child(odd) .timeline-content {
+            margin-left: auto;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: 50%;
+            transform: translate(-50%, 50%);
+            width: 20px;
+            height: 20px;
+            background: #ffd700;
+            border: 4px solid #1e3c72;
+            border-radius: 50%;
+            top: 0;
+        }
+
+        .timeline-year {
+            font-size: 1.5rem;
+            color: #1e3c72;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Contact Section */
+        .contact {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+        }
+
+        .contact h2 {
+            color: white;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .contact-card {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 2rem;
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+        }
+
+        .contact-card h3 {
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .contact-card p {
+            margin-bottom: 0.5rem;
+        }
+
+        /* Footer */
+        footer {
+            background: #0d1b2a;
+            color: white;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-container {
+                padding: 0 1rem;
+                flex-wrap: nowrap;
+            }
+
+            .logo {
+                font-size: 1.2rem;
+                white-space: nowrap;
+            }
+
+            .nav-menu {
+                gap: 0.5rem;
+                flex-wrap: nowrap;
+            }
+
+            .nav-menu a {
+                font-size: 0.75rem;
+                padding: 0.3rem 0.5rem;
+                white-space: nowrap;
+            }
+
+            .slider-container {
+                height: 400px;
+            }
+
+            .slide-overlay h2 {
+                font-size: 1.5rem;
+                padding: 0 1rem;
+            }
+
+            .slide-overlay p {
+                font-size: 0.9rem;
+                padding: 0 1rem;
+            }
+
+            .slider-arrow {
+                font-size: 1.5rem;
+                padding: 0.5rem 1rem;
+            }
+
+            .slider-arrow.prev {
+                left: 10px;
+            }
+
+            .slider-arrow.next {
+                right: 10px;
+            }
+
+            section {
+                padding: 2rem 1rem;
+            }
+
+            h2 {
+                font-size: 1.8rem;
+            }
+
+            .section-subtitle {
+                font-size: 0.9rem;
+            }
+
+            .stats-grid,
+            .services-grid,
+            .projects-grid,
+            .contact-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .about-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .about-image {
+                height: 250px;
+                font-size: 1rem;
+            }
+
+            .service-card,
+            .project-card,
+            .contact-card,
+            .stat-card {
+                padding: 1.5rem;
+            }
+
+            .timeline::before {
+                left: 20px;
+            }
+
+            .timeline-content {
+                width: calc(100% - 50px);
+                margin-left: 50px !important;
+                padding: 1rem;
+            }
+
+            .timeline-item:nth-child(odd) .timeline-content {
+                margin-left: 50px !important;
+            }
+
+            .timeline-dot {
+                left: 20px;
+                transform: translate(-50%, 50%);
+            }
+
+            .timeline-year {
+                font-size: 1.2rem;
+            }
+
+            .project-image {
+                height: 200px;
+                font-size: 1rem;
+            }
+        }
+
+        /* iPhone specific fixes */
+        @media only screen 
+        and (min-device-width: 375px) 
+        and (max-device-width: 428px) 
+        and (-webkit-min-device-pixel-ratio: 2) {
+            
+            .nav-container {
+                padding: 0 0.75rem;
+            }
+
+            .logo {
+                font-size: 1.1rem;
+            }
+
+            .nav-menu {
+                gap: 0.4rem;
+            }
+
+            .nav-menu a {
+                font-size: 0.7rem;
+                padding: 0.3rem 0.4rem;
+            }
+
+            .slider-container {
+                height: 350px;
+            }
+
+            .slide-overlay h2 {
+                font-size: 1.3rem;
+            }
+
+            .slide-overlay p {
+                font-size: 0.85rem;
+            }
+        }
+
+        /* Very small phones */
+        @media (max-width: 375px) {
+            .logo {
+                font-size: 1rem;
+            }
+
+            .nav-menu {
+                gap: 0.3rem;
+            }
+
+            .nav-menu a {
+                font-size: 0.65rem;
+                padding: 0.25rem 0.35rem;
+            }
+
+            .slider-container {
+                height: 300px;
+            }
+
+            .slide-overlay h2 {
+                font-size: 1.2rem;
+            }
+
+            .slide-overlay p {
+                font-size: 0.8rem;
+            }
+
+            h2 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo">🏢 ElevaTech</a>
+            <ul class="nav-menu">
+                <li><a href="#home">Beranda</a></li>
+                <li><a href="#products">Produk</a></li>
+                <li><a href="#about">Tentang</a></li>
+                <li><a href="#contact">Kontak</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Image Slider -->
+    <div class="slider-container" id="home">
+        <div class="slider" id="slider">
+            <div class="slide">
+                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1920' height='600'%3E%3Crect fill='%231e3c72' width='1920' height='600'/%3E%3C/svg%3E" alt="Slide 1">
+                <div class="slide-overlay">
+                    <h2>Solusi Lift Modern & Terpercaya</h2>
+                    <p>Lebih dari 25 tahun pengalaman melayani kebutuhan transportasi vertikal Anda</p>
+                </div>
+            </div>
+            <div class="slide">
+                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1920' height='600'%3E%3Crect fill='%232a5298' width='1920' height='600'/%3E%3C/svg%3E" alt="Slide 2">
+                <div class="slide-overlay">
+                    <h2>Instalasi Profesional</h2>
+                    <p>Tim teknisi bersertifikat dengan standar keselamatan internasional</p>
+                </div>
+            </div>
+            <div class="slide">
+                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1920' height='600'%3E%3Crect fill='%23667eea' width='1920' height='600'/%3E%3C/svg%3E" alt="Slide 3">
+                <div class="slide-overlay">
+                    <h2>Perawatan & Modernisasi</h2>
+                    <p>Layanan maintenance rutin dan upgrade sistem lift terkini</p>
+                </div>
+            </div>
+        </div>
+        <button class="slider-arrow prev" onclick="moveSlide(-1)">❮</button>
+        <button class="slider-arrow next" onclick="moveSlide(1)">❯</button>
+        <div class="slider-nav">
+            <span class="slider-dot active" onclick="currentSlide(0)"></span>
+            <span class="slider-dot" onclick="currentSlide(1)"></span>
+            <span class="slider-dot" onclick="currentSlide(2)"></span>
+        </div>
+    </div>
+
+    <!-- Stats Section -->
+    <section class="stats">
+        <div class="container">
+            <h2>Pencapaian Kami</h2>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number">25+</div>
+                    <div class="stat-label">Tahun Pengalaman</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">500+</div>
+                    <div class="stat-label">Proyek Selesai</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">300+</div>
+                    <div class="stat-label">Klien Puas</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">50+</div>
+                    <div class="stat-label">Teknisi Bersertifikat</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about" id="about">
+        <div class="container">
+            <h2>Tentang Kami</h2>
+            <p class="section-subtitle">Mitra Terpercaya untuk Solusi Lift Anda</p>
+            <div class="about-content">
+                <div class="about-text">
+                    <p><strong>ElevaTech Indonesia</strong> adalah perusahaan terkemuka dalam bidang penyediaan, instalasi, perawatan, dan modernisasi sistem lift di Indonesia. Didirikan pada tahun 1998, kami telah melayani berbagai sektor industri mulai dari perumahan, perkantoran, rumah sakit, hotel, hingga gedung-gedung pencakar langit.</p>
+                    
+                    <p>Dengan pengalaman lebih dari 25 tahun, kami memahami betul kebutuhan transportasi vertikal yang aman, efisien, dan handal. Tim kami terdiri dari teknisi bersertifikat internasional yang selalu mengikuti perkembangan teknologi terkini dalam industri lift.</p>
+                    
+                    <p>Komitmen kami adalah memberikan solusi terbaik dengan standar keselamatan tertinggi, layanan pelanggan yang responsif, dan harga yang kompetitif. Kami bangga telah menjadi bagian dari ratusan proyek bergengsi di seluruh Indonesia.</p>
+                    
+                    <p><strong>Visi Kami:</strong> Menjadi perusahaan lift terdepan di Indonesia yang dikenal dengan inovasi, kualitas, dan pelayanan prima.</p>
+                    
+                    <p><strong>Misi Kami:</strong> Menyediakan solusi transportasi vertikal yang aman, modern, dan berkelanjutan untuk meningkatkan kualitas hidup masyarakat Indonesia.</p>
+                </div>
+                <div class="about-image">
+                    <div>Gambar Kantor & Tim Kami</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="services" id="products">
+        <div class="container">
+            <h2>Layanan Kami</h2>
+            <p class="section-subtitle">Solusi Lengkap untuk Semua Kebutuhan Lift Anda</p>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">🏗️</div>
+                    <h3>Instalasi Lift Baru</h3>
+                    <p>Pemasangan lift berkualitas tinggi untuk gedung baru dengan teknologi terkini. Kami menyediakan lift penumpang, lift barang, lift rumah sakit, dan lift khusus lainnya dengan desain yang dapat disesuaikan dengan kebutuhan bangunan Anda.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">🔧</div>
+                    <h3>Perawatan & Maintenance</h3>
+                    <p>Layanan perawatan rutin dan preventif untuk memastikan lift Anda beroperasi optimal. Kami menawarkan paket maintenance bulanan dan tahunan dengan respons cepat 24/7 untuk emergency service.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">⚡</div>
+                    <h3>Modernisasi Lift</h3>
+                    <p>Upgrade sistem lift lama dengan teknologi modern untuk meningkatkan efisiensi, keamanan, dan kenyamanan. Termasuk penggantian control system, motor drive, dan interior cabin.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">🔍</div>
+                    <h3>Inspeksi & Sertifikasi</h3>
+                    <p>Inspeksi berkala dan sertifikasi kelaikan lift sesuai standar Kementerian Tenaga Kerja. Kami membantu memastikan lift Anda memenuhi semua regulasi keselamatan yang berlaku.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">🛠️</div>
+                    <h3>Perbaikan & Emergency</h3>
+                    <p>Layanan perbaikan cepat dan darurat 24/7. Tim teknisi kami siap siaga untuk menangani segala jenis kerusakan lift dengan spare parts original dan berkualitas.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">📋</div>
+                    <h3>Konsultasi Teknis</h3>
+                    <p>Konsultasi profesional untuk pemilihan jenis lift yang tepat, perencanaan instalasi, dan estimasi biaya. Kami membantu Anda membuat keputusan terbaik untuk investasi lift Anda.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section class="projects" id="projects">
+        <div class="container">
+            <h2>Proyek Terkini</h2>
+            <p class="section-subtitle">Portfolio Proyek yang Telah Kami Selesaikan</p>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <div class="project-image">📍 Jakarta</div>
+                    <div class="project-info">
+                        <h3>Grand Indonesia Tower</h3>
+                        <p>Instalasi 8 unit lift penumpang high-speed untuk gedung perkantoran 40 lantai dengan kapasitas 1600kg dan kecepatan 4.0 m/s.</p>
+                        <div class="project-details">
+                            <div class="project-detail">📅 2024</div>
+                            <div class="project-detail">🏢 Perkantoran</div>
+                            <div class="project-detail">✅ Selesai</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="project-image">📍 Surabaya</div>
+                    <div class="project-info">
+                        <h3>Royal Hospital Surabaya</h3>
+                        <p>Instalasi 6 unit lift rumah sakit dengan sistem stretcher bed dan 2 unit service lift untuk rumah sakit 12 lantai.</p>
+                        <div class="project-details">
+                            <div class="project-detail">📅 2023</div>
+                            <div class="project-detail">🏥 Rumah Sakit</div>
+                            <div class="project-detail">✅ Selesai</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="project-image">📍 Bali</div>
+                    <div class="project-info">
+                        <h3>The Legian Luxury Resort</h3>
+                        <p>Instalasi 4 unit lift panoramic dengan glass cabin untuk resort mewah 8 lantai menghadap pantai Seminyak.</p>
+                        <div class="project-details">
+                            <div class="project-detail">📅 2023</div>
+                            <div class="project-detail">🏨 Hotel</div>
+                            <div class="project-detail">✅ Selesai</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="project-image">📍 Bandung</div>
+                    <div class="project-info">
+                        <h3>Cihampelas Walk Mall</h3>
+                        <p>Modernisasi 12 unit lift penumpang existing dengan control system terbaru dan interior cabin modern.</p>
+                        <div class="project-details">
+                            <div class="project-detail">📅 2024</div>
+                            <div class="project-detail">🛍️ Mall</div>
+                            <div class="project-detail">✅ Selesai</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="project-image">📍 Medan</div>
+                    <div class="project-info">
+                        <h3>Medan City Apartment</h3>
+                        <p>Instalasi 10 unit lift penumpang untuk kompleks apartemen 25 lantai dengan sistem destination control.</p>
+                        <div class="project-details">
+                            <div class="project-detail">📅 2024</div>
+                            <div class="project-detail">🏘️ Apartemen</div>
+                            <div class="project-detail">🔄 Progress</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="project-image">📍 Semarang</div>
+                    <div class="project-info">
+                        <h3>Industrial Park Semarang</h3>
+                        <p>Instalasi 5 unit freight elevator heavy duty untuk pabrik dengan kapasitas 5000kg dan pintu cargo.</p>
+                        <div class="project-details">
+                            <div class="project-detail">📅 2023</div>
+                            <div class="project-detail">🏭 Industri</div>
+                            <div class="project-detail">✅ Selesai</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Timeline -->
+    <section class="experience" id="experience">
+        <div class="container">
+            <h2>Perjalanan & Pengalaman Kami</h2>
+            <p class="section-subtitle">Lebih dari Dua Dekade Melayani Indonesia</p>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-year">1998</div>
+                        <h3>Pendirian Perusahaan</h3>
+                        <p>ElevaTech Indonesia didirikan di Jakarta dengan fokus awal pada maintenance lift untuk gedung-gedung perkantoran.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-year">2003</div>
+                        <h3>Ekspansi Layanan</h3>
+                        <p>Mulai menyediakan layanan instalasi lift baru dan membuka kantor cabang di Surabaya dan Bandung.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-year">2008</div>
+                        <h3>Sertifikasi Internasional</h3>
+                        <p>Memperoleh sertifikasi ISO 9001:2008 untuk sistem manajemen mutu dan menjadi mitra resmi brand lift internasional terkemuka.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-year">2013</div>
+                        <h3>Proyek Mega</h3>
+                        <p>Menyelesaikan proyek instalasi 30 unit lift untuk gedung pencakar langit pertama kami - Jakarta Financial Tower.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-year">2018</div>
+                        <h3>Inovasi Teknologi</h3>
+                        <p>Mengimplementasikan sistem IoT dan smart monitoring untuk semua lift yang kami kelola, meningkatkan efisiensi maintenance hingga 40%.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-year">2023</div>
+                        <h3>Milestone 500 Proyek</h3>
+                        <p>Mencapai tonggak sejarah dengan menyelesaikan proyek ke-500 dan melayani lebih dari 300 klien di seluruh Indonesia.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <div class="container">
+            <h2>Hubungi Kami</h2>
+            <p class="section-subtitle">Kami Siap Melayani Kebutuhan Lift Anda</p>
+            <div class="contact-grid">
+                <div class="contact-card">
+                    <h3>📍 Kantor Pusat</h3>
+                    <p><strong>Jakarta</strong></p>
+                    <p>Jl. Sudirman Kav. 52-53</p>
+                    <p>Jakarta Selatan 12190</p>
+                    <p>Indonesia</p>
+                </div>
+                <div class="contact-card">
+                    <h3>📞 Telepon & WhatsApp</h3>
+                    <p><strong>Call Center 24/7:</strong></p>
+                    <p>+62 21 5700 8888</p>
+                    <p><strong>WhatsApp:</strong></p>
+                    <p>+62 812 3456 7890</p>
+                </div>
+                <div class="contact-card">
+                    <h3>✉️ Email</h3>
+                    <p><strong>Info & Inquiry:</strong></p>
+                    <p>info@elevatech.co.id</p>
+                    <p><strong>Service & Support:</strong></p>
+                    <p>support@elevatech.co.id</p>
+                </div>
+                <div class="contact-card">
+                    <h3>🏢 Kantor Cabang</h3>
+                    <p><strong>Surabaya:</strong> +62 31 5600 7777</p>
+                    <p><strong>Bandung:</strong> +62 22 4200 6666</p>
+                    <p><strong>Bali:</strong> +62 361 4700 5555</p>
+                    <p><strong>Medan:</strong> +62 61 4500 4444</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 ElevaTech Indonesia. All Rights Reserved.</p>
+            <p>Solusi Lift Terpercaya untuk Indonesia</p>
+        </div>
+    </footer>
+
+    <script>
+        let currentIndex = 0;
+        const slides = document.querySelectorAll('.slide');
+        const dots = document.querySelectorAll('.slider-dot');
+        const slider = document.getElementById('slider');
+        const sliderContainer = document.querySelector('.slider-container');
+        
+        let startX = 0;
+        let currentX = 0;
+        let isDragging = false;
+        let startTransform = 0;
+        let autoSlideInterval;
+
+        function showSlide(index) {
+            if (index >= slides.length) {
+                currentIndex = 0;
+            } else if (index < 0) {
+                currentIndex = slides.length - 1;
+            } else {
+                currentIndex = index;
+            }
+
+            slider.style.transform = `translateX(-${currentIndex * 100}%)`;
+            
+            dots.forEach((dot, i) => {
+                dot.classList.toggle('active', i === currentIndex);
+            });
+        }
+
+        function moveSlide(direction) {
+            showSlide(currentIndex + direction);
+        }
+
+        function currentSlide(index) {
+            showSlide(index);
+        }
+
+        // Touch and Mouse Drag Events
+        function handleStart(e) {
+            isDragging = true;
+            startX = e.type.includes('mouse') ? e.pageX : e.touches[0].clientX;
+            startTransform = currentIndex * sliderContainer.offsetWidth;
+            slider.style.transition = 'none';
+            clearInterval(autoSlideInterval);
+        }
+
+        function handleMove(e) {
+            if (!isDragging) return;
+            
+            currentX = e.type.includes('mouse') ? e.pageX : e.touches[0].clientX;
+            const diff = startX - currentX;
+            const transform = startTransform + diff;
+            
+            slider.style.transform = `translateX(-${transform}px)`;
+        }
+
+        function handleEnd(e) {
+            if (!isDragging) return;
+            isDragging = false;
+            
+            slider.style.transition = 'transform 0.5s ease-in-out';
+            
+            const diff = startX - currentX;
+            const threshold = sliderContainer.offsetWidth / 4;
+            
+            if (Math.abs(diff) > threshold) {
+                if (diff > 0) {
+                    moveSlide(1);
+                } else {
+                    moveSlide(-1);
+                }
+            } else {
+                showSlide(currentIndex);
+            }
+            
+            startAutoSlide();
+        }
+
+        // Mouse events
+        sliderContainer.addEventListener('mousedown', handleStart);
+        sliderContainer.addEventListener('mousemove', handleMove);
+        sliderContainer.addEventListener('mouseup', handleEnd);
+        sliderContainer.addEventListener('mouseleave', handleEnd);
+
+        // Touch events
+        sliderContainer.addEventListener('touchstart', handleStart);
+        sliderContainer.addEventListener('touchmove', handleMove);
+        sliderContainer.addEventListener('touchend', handleEnd);
+
+        // Auto slide function
+        function startAutoSlide() {
+            clearInterval(autoSlideInterval);
+            autoSlideInterval = setInterval(() => {
+                if (!isDragging) {
+                    moveSlide(1);
+                }
+            }, 5000);
+        }
+
+        // Start auto slide on page load
+        startAutoSlide();
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+  </html>
